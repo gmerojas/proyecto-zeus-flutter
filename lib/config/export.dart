@@ -1,0 +1,1 @@
+export './router/router_config.dart';
