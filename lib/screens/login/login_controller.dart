@@ -6,9 +6,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
   /*
    * CONSTRUCTOR
    */
-  LoginNotifier() : super(LoginState.initial()) {
-    //loadView();
-  }
+  LoginNotifier() : super(LoginState.initial());
 
   Future<void> loadView() async {
     try {
@@ -24,7 +22,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
     try {
       state = state.copyWith(loginViewState: LoginViewState.showLoading());
       await Future.delayed(Duration(seconds: 1));
-      state = state.copyWith(loginViewState: LoginViewState.hideLoading(), loginNavigateState: LoginNavigateState.goHome());
+      state = state.copyWith(loginViewState: LoginViewState.hideLoading());//, loginNavigateState: LoginNavigateState.goMain());
     } catch (e) {
       state = state.copyWith(loginViewState: LoginViewState.hideLoading());
     }
@@ -36,24 +34,27 @@ class LoginNotifier extends StateNotifier<LoginState> {
  */
 class LoginState {
   final LoginViewState loginViewState;
-  final LoginNavigateState loginNavigateState;
+  //final LoginNavigateState loginNavigateState;
 
-  LoginState({required this.loginViewState, required this.loginNavigateState});
+  LoginState({
+    required this.loginViewState, 
+    //required this.loginNavigateState
+  });
 
   LoginState copyWith({
     LoginViewState? loginViewState,
-    LoginNavigateState? loginNavigateState,
+    //LoginNavigateState? loginNavigateState,
   }) {
     return LoginState(
       loginViewState: loginViewState ?? this.loginViewState,
-      loginNavigateState: loginNavigateState ?? this.loginNavigateState,
+      //loginNavigateState: loginNavigateState ?? this.loginNavigateState,
     );
   }
 
   factory LoginState.initial() {
     return LoginState(
       loginViewState: LoginViewState.hideLoading(),
-      loginNavigateState: LoginNavigateState.goLogin()
+      //loginNavigateState: LoginNavigateState.goLogin()
     );
   }
 }
@@ -109,9 +110,9 @@ class LoginNavigateState {
     );
   }
 
-  factory LoginNavigateState.goHome() {
+  factory LoginNavigateState.goMain() {
     return LoginNavigateState(
-      nextPage: '/home'
+      nextPage: '/main'
     );
   }
 }

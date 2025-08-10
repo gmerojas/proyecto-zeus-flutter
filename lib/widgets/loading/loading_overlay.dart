@@ -16,7 +16,7 @@ class LoadingOverlay extends ConsumerWidget {
         child, // Pantalla principal
         if (state == LoadingState.loading)
           Opacity(
-            opacity: 0.1,
+            opacity: 0.5,
             child: ModalBarrier(dismissible: false, color: Colors.black),
           ),
         if (state == LoadingState.loading)

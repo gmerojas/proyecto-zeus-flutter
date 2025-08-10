@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
-
-import '../../screens/export.dart';
+import 'package:proyecto_zeus/screens/export.dart';
 
 final routerConfig = GoRouter(
   initialLocation: '/splash',
@@ -14,8 +13,8 @@ final routerConfig = GoRouter(
       builder: (context, state) => const LoginScreen(),
     ),
     GoRoute(
-      path: '/home',
-      builder: (context, state) => const HomeScreen(),
+      path: '/main',
+      builder: (context, state) => const MainScreen(),
     ),
   ],
 );

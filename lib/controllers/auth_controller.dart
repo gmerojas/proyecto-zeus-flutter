@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:proyecto_zeus/providers/secure_storage_provider.dart';
+import 'package:proyecto_zeus/providers/export.dart';
 import 'package:proyecto_zeus/services/export.dart';
 
 // Define estados de autenticación

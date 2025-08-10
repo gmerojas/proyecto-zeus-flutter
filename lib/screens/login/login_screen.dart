@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:proyecto_zeus/controllers/export.dart';
 import 'package:proyecto_zeus/providers/export.dart';
 import 'package:proyecto_zeus/screens/login/login_controller.dart';
 
@@ -24,7 +24,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final loginController = ref.read(loginProvider.notifier);
 
     ref.listen<LoginState>(loginProvider, (previous, next) {
       if (next.loginViewState.loading) {
@@ -32,14 +31,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       } else {
         ref.read(loadingProvider.notifier).hideLoading();
       }
-
-      if (previous?.loginNavigateState.nextPage != next.loginNavigateState.nextPage) {
-        context.go(next.loginNavigateState.nextPage);
-      }
     });
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      backgroundColor: Colors.purple,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -47,9 +42,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             const Text('Login', style: TextStyle(color: Colors.white, fontSize: 36, fontWeight: FontWeight.w500)),
             ElevatedButton(
               onPressed: () {
-                //ref.read(authControllerProvider.notifier).login();
-                //context.go('/home');
-                loginController.loginPassword();
+                ref.read(authControllerProvider.notifier).login();
               },
               child: const Text('Iniciar sesión'),
             ),
