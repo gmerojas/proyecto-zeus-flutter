@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:proyecto_zeus/controllers/auth_controller.dart';
-import 'package:proyecto_zeus/widgets/loading/loading_overlay.dart';
 
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
@@ -21,12 +20,14 @@ class SplashScreen extends ConsumerWidget {
       }
     });
 
-    return LoadingOverlay(
-      isLoading: authState == AuthState.checking,
-      child: Scaffold(
-        body: Center(
-          child: Text('Splash screen')
-        ),
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Splash screen')
+          ],
+        )
       ),
     );
   }

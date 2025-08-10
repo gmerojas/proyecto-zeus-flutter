@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:proyecto_zeus/providers/export.dart';
 
 // Widget reusable para pantalla de carga
-class LoadingOverlay extends StatelessWidget {
-  final bool isLoading;
+class LoadingOverlay extends ConsumerWidget {
   final Widget child;
 
-  LoadingOverlay({required this.isLoading, required this.child});
+  const LoadingOverlay({super.key, required this.child});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(loadingProvider);
     return Stack(
       children: [
         child, // Pantalla principal
-        if (isLoading)
+        if (state == LoadingState.loading)
           Opacity(
             opacity: 0.1,
             child: ModalBarrier(dismissible: false, color: Colors.black),
           ),
-        if (isLoading)
+        if (state == LoadingState.loading)
           Center(
             child: CircularProgressIndicator(),
           ),
