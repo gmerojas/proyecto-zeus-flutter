@@ -21,6 +21,7 @@ class SplashScreen extends ConsumerWidget {
     });
 
     return Scaffold(
+      backgroundColor: Colors.amber,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
