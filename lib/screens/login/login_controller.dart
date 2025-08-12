@@ -1,17 +1,31 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:proyecto_zeus/providers/api_service_provider.dart';
+import 'package:proyecto_zeus/services/api_service.dart';
 
-final loginProvider = StateNotifierProvider.autoDispose<LoginNotifier, LoginState>((ref) => LoginNotifier());
+final loginProvider = StateNotifierProvider.autoDispose<LoginNotifier, LoginState>((ref) {
+  final apiService = ref.read(apiServiceProvider);
+  return LoginNotifier(apiService);
+});
 
 class LoginNotifier extends StateNotifier<LoginState> {
+  final ApiService _apiService;
   /*
    * CONSTRUCTOR
    */
-  LoginNotifier() : super(LoginState.initial());
+  LoginNotifier(this._apiService) : super(LoginState.initial());
 
   Future<void> loadView() async {
     try {
       state = state.copyWith(loginViewState: LoginViewState.showLoading());
+      
+      /*
+       * Obtiene informacion inicial
+       */
+      //final response = await _apiService.getData('path');
+      //debugPrint(response.statusCode.toString());
       await Future.delayed(Duration(seconds: 1));
+      
       state = state.copyWith(loginViewState: LoginViewState.hideLoading());
     } catch (e) {
       state = state.copyWith(loginViewState: LoginViewState.hideLoading());
@@ -21,6 +35,12 @@ class LoginNotifier extends StateNotifier<LoginState> {
   Future<void> loginPassword() async {
     try {
       state = state.copyWith(loginViewState: LoginViewState.showLoading());
+
+      /*
+       * 
+       */
+      final response = await _apiService.getData('path');
+      debugPrint(response.statusCode.toString());
       await Future.delayed(Duration(seconds: 1));
       state = state.copyWith(loginViewState: LoginViewState.hideLoading());//, loginNavigateState: LoginNavigateState.goMain());
     } catch (e) {

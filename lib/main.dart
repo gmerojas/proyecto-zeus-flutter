@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:proyecto_zeus/providers/export.dart';
 import 'package:proyecto_zeus/widgets/export.dart';
 
-void main() {
+void main() async {
+  const bool isProduction = bool.fromEnvironment('dart.vm.product');
+  await dotenv.load(fileName: isProduction ? ".env.prod" : ".env.dev");
   runApp(ProviderScope(child: MyApp()));
 }
 

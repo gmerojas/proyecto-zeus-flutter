@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../controllers/export.dart';
 
 class HomeScreen extends ConsumerWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
