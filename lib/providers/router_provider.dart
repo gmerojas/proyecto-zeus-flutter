@@ -3,15 +3,22 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:proyecto_zeus/controllers/export.dart';
+import 'package:proyecto_zeus/providers/session_stream_provider.dart';
 import 'package:proyecto_zeus/screens/export.dart';
+
+/// Clave raíz para GoRouter
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authControllerProvider);
+  final sessionStateStream = ref.read(sessionStateStreamProvider);
   bool flagLogin = true;
   bool flagMain = true;
 
   return GoRouter(
+    navigatorKey: _rootNavigatorKey,
     initialLocation: '/splash',
     routes: [
       GoRoute(
@@ -24,7 +31,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/main',
-        builder:  (context, state) => MainScreen(),
+        builder:  (context, state) => MainScreen(sessionStateStream: sessionStateStream),
       ),
       GoRoute(
         path: '/home',
@@ -43,6 +50,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       }
 
       if (!loggedIn && !logginIn && flagLogin) {
+        // Dejamos de escuchar el tiempo de sesion
+        sessionStateStream.add(SessionState.stopListening);
+
         // Ir a login si no esta logueado y no esta en la pantalla de login
         flagLogin = !flagLogin;
         return '/login';

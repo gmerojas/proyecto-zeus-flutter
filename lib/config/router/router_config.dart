@@ -12,9 +12,9 @@ final routerConfig = GoRouter(
       path: '/login',
       builder: (context, state) => const LoginScreen(),
     ),
-    GoRoute(
+    /*GoRoute(
       path: '/main',
       builder: (context, state) => const MainScreen(),
-    ),
+    ),*/
   ],
 );

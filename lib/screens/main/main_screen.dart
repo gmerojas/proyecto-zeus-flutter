@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:proyecto_zeus/controllers/export.dart';
 import 'package:proyecto_zeus/providers/export.dart';
 import 'package:proyecto_zeus/screens/main/main_controller.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
-  const MainScreen({super.key});
+  final StreamController<SessionState> sessionStateStream;
+  const MainScreen({super.key, required this.sessionStateStream});
 
   @override
   ConsumerState<MainScreen> createState() => _MainScreenState();
@@ -21,6 +25,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(mainProvider.notifier).loadView();
     });
+
+    widget.sessionStateStream.add(SessionState.startListening);
   }
 
   @override
